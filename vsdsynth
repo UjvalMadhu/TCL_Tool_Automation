@@ -1,0 +1,24 @@
+#!/bin/tcsh -f
+echo
+echo "*****  A UI that will accept an RTL Netlist & SDC constraits as an input and will generate a synthesized netlist *****"
+echo "*****  & pre-layout timing report as an output. It uses Yosys Open Source Tool for Synthesis and OpenTimer to    *****"
+echo "*****  generate pre-layout timing Reports.                                                                       *****"
+
+echo "           Developed by: Ujval Madhu"
+echo "           Acknowledgement: Kunal Ghosh, vlsisystemdesign.com"
+echo ""
+echo ""
+echo ""
+
+set my_work_dir = `pwd`
+
+
+#--------------------------------------#
+#--------- Tool Initialization---------#
+#--------------------------------------#
+
+
+if ($#argv != 1) then
+	echo "Info: Please provide the csv file"
+	exit 1
+endif
