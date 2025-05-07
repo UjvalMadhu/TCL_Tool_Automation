@@ -3,7 +3,8 @@ echo
 echo "*****  A UI that will accept an RTL Netlist & SDC constraits as an input and will generate a synthesized netlist *****"
 echo "*****  & pre-layout timing report as an output. It uses Yosys Open Source Tool for Synthesis and OpenTimer to    *****"
 echo "*****  generate pre-layout timing Reports.                                                                       *****"
-
+echo ""
+echo ""
 echo "           Developed by: Ujval Madhu"
 echo "           Acknowledgement: Kunal Ghosh, vlsisystemdesign.com"
 echo ""
@@ -17,8 +18,24 @@ set my_work_dir = `pwd`
 #--------- Tool Initialization---------#
 #--------------------------------------#
 
+if (! -f $argv[1]) then
+	if ($argv == "-help") then
+		echo USAGE: ./vsdsynth \<csv_file.csv\>
+		exit 1
+	else
+		echo "Info: Please provide the csv file"
+		exit 1
+	endif
 
-if ($#argv != 1) then
-	echo "Info: Please provide the csv file"
-	exit 1
-endif
+set filename [lindex $argv 0]
+package require csv
+package require struct::matrix
+struct::matrix m
+set f [open filename]
+csv::read2matrix $f m, auto
+close $f
+set columns [m columns]
+m link my_arr
+set num_of_rows [m rows]
+set i 0
+
